@@ -74,3 +74,13 @@ qtc-gdbmacros/
 
 # Installation packages
 dist/linux/package
+/projects/cli
+/projects/cli/RubiChess-Bitboard-opt.exe
+/projects/cli/RubiChess-Bitboard-Master.exe
+/projects/cli/results.pgn
+/projects/cli/cmdline.txt
+/projects/cli/cmdline-rubichess.txt
+/projects/cli/8moves_v3.pgn
+/projects/cli/2moves_v1.pgn
+/projects/gui/cutechess_plugin_import.cpp
+/.qmake.stash

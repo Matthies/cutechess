@@ -105,12 +105,12 @@ ChessEngine::~ChessEngine()
 	qDeleteAll(m_options);
 }
 
-QIODevice* ChessEngine::device() const
+EngineProcess* ChessEngine::device() const
 {
 	return m_ioDevice;
 }
 
-void ChessEngine::setDevice(QIODevice* device)
+void ChessEngine::setDevice(EngineProcess* device)
 {
 	Q_ASSERT(device != nullptr);
 
@@ -367,6 +367,9 @@ void ChessEngine::ping(bool sendCommand)
 	m_pinging = true;
 	m_pingState = state();
 	m_pingTimer->start();
+    m_ioDevice->GetCpuUsage();
+    printf("Bla\n");
+
 }
 
 void ChessEngine::pong(bool emitReady)

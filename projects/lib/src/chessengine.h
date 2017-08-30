@@ -22,6 +22,7 @@
 #include <QVariant>
 #include <QStringList>
 #include "engineconfiguration.h"
+#include "engineprocess.h"
 
 class QIODevice;
 class EngineOption;
@@ -58,9 +59,9 @@ class LIB_EXPORT ChessEngine : public ChessPlayer
 		virtual ~ChessEngine();
 
 		/*! Returns the current device associated with the engine. */
-		QIODevice* device() const;
+        EngineProcess* device() const;
 		/*! Sets the current device to \a device. */
-		void setDevice(QIODevice* device);
+		void setDevice(EngineProcess* device);
 
 		// Inherited from ChessPlayer
 		virtual void endGame(const Chess::Result& result);
@@ -281,7 +282,7 @@ class LIB_EXPORT ChessEngine : public ChessPlayer
 		QTimer* m_quitTimer;
 		QTimer* m_idleTimer;
 		QTimer* m_protocolStartTimer;
-		QIODevice *m_ioDevice;
+        EngineProcess *m_ioDevice;
 		QStringList m_writeBuffer;
 		QStringList m_variants;
 		QList<EngineOption*> m_options;
