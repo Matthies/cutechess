@@ -123,7 +123,7 @@ void ChessPlayer::startClock()
 	if (m_timeControl.isValid())
 		emit startedThinking(m_timeControl.timeLeft());
 
-	m_timeControl.startTimer();
+    m_timeControl.startTimer(m_engineprocess);
 
 	if (!m_timeControl.isInfinite())
 	{
@@ -246,7 +246,7 @@ void ChessPlayer::emitMove(const Chess::Move& move)
 	if (m_state == Thinking)
 		setState(Observing);
 
-	m_timeControl.update();
+    m_timeControl.update(true, m_engineprocess);
 	m_eval.setTime(m_timeControl.lastMoveTime());
 
 	m_timer->stop();
@@ -275,4 +275,10 @@ void ChessPlayer::onTimeout()
 {
 	if (!canPlayAfterTimeout())
 		forfeit(Chess::Result::Timeout);
+}
+
+
+void ChessPlayer::registerEngineProcess(EngineProcess *ep)
+{
+    m_engineprocess = ep;
 }

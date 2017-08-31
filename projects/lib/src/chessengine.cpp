@@ -119,6 +119,8 @@ void ChessEngine::setDevice(EngineProcess* device)
 
 	connect(m_ioDevice, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
 	connect(m_ioDevice, SIGNAL(readChannelFinished()), this, SLOT(onCrashed()));
+
+    registerEngineProcess(device);
 }
 
 void ChessEngine::applyConfiguration(const EngineConfiguration& configuration)
@@ -368,8 +370,6 @@ void ChessEngine::ping(bool sendCommand)
 	m_pingState = state();
 	m_pingTimer->start();
     m_ioDevice->GetCpuUsage();
-    printf("Bla\n");
-
 }
 
 void ChessEngine::pong(bool emitReady)

@@ -124,7 +124,7 @@ class LIB_EXPORT EngineProcess : public QIODevice
 		 */
 		bool waitForStarted(int msecs = 30000);
 
-        quint64 GetCpuUsage();
+        int GetCpuUsage();
 
 	public slots:
 		/*! Kills the process, causing it to exit immediately. */
@@ -173,6 +173,8 @@ class LIB_EXPORT EngineProcess : public QIODevice
 		HANDLE m_outRead;
 		HANDLE m_errRead;
 		PipeReader* m_reader;
+        int cputimer;
+        int deltatime;
 };
 
 #endif // ENGINEPROCESS_WIN_H

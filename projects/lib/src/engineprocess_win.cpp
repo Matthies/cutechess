@@ -452,20 +452,23 @@ qint64 EngineProcess::writeData(const char* data, qint64 maxSize)
 }
 
 
-quint64 EngineProcess::GetCpuUsage()
+int EngineProcess::GetCpuUsage()
 {
+    quint64 newcputimer;
     FILETIME cpuTime;
     FILETIME kernelTime;
     FILETIME createTime;
     FILETIME exitTime;
     if (!GetProcessTimes(m_processInfo.hProcess, &createTime, &exitTime, &kernelTime, &cpuTime))
     {
-        printf("GetProcessTimes failed\n");
-        return 0ULL;
+        return 0;
     }
     else
     {
-        printf("CPU-Time low=%lu high=%lu\n", cpuTime.dwLowDateTime, cpuTime.dwHighDateTime);
-        return (quint64)(cpuTime.dwLowDateTime) | ((quint64)(cpuTime.dwHighDateTime) << 32);
+        newcputimer = ((quint64)(cpuTime.dwLowDateTime) | ((quint64)(cpuTime.dwHighDateTime) << 32)) / 10000;
+        deltatime = newcputimer - cputimer;
+        cputimer = newcputimer;
+        return deltatime;
     }
 }
+

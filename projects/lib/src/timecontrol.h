@@ -21,6 +21,7 @@
 #include <QElapsedTimer>
 #include <QString>
 #include <QCoreApplication>
+#include "engineprocess.h"
 class QSettings;
 
 /*!
@@ -171,7 +172,7 @@ class LIB_EXPORT TimeControl
 
 		
 		/*! Start the timer. */
-		void startTimer();
+		void startTimer(EngineProcess *engine = nullptr);
 		
 		/*!
 		 * Update the time control with the elapsed time.
@@ -180,7 +181,7 @@ class LIB_EXPORT TimeControl
 		 * Set this value to false if no increment is necessary for
 		 * the current move, e.g. for a book move.
 		 */
-		void update(bool applyIncrement = true);
+		void update(bool applyIncrement = true, EngineProcess *engine = nullptr);
 
 		/*! Returns the last elapsed move time. */
 		int lastMoveTime() const;

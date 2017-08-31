@@ -23,6 +23,7 @@
 #include <QVector>
 #include "board/result.h"
 #include "board/move.h"
+#include "engineprocess.h"
 #include "timecontrol.h"
 #include "moveevaluation.h"
 class QTimer;
@@ -98,6 +99,9 @@ class LIB_EXPORT ChessPlayer : public QObject
 
 		/*! Sets the time control for the player. */
 		void setTimeControl(const TimeControl& timeControl);
+
+        /* Registers the CPU timer hook */
+        void registerEngineProcess(EngineProcess *ep);
 
 		/*! Returns the side of the player. */
 		Chess::Side side() const;
@@ -293,6 +297,7 @@ class LIB_EXPORT ChessPlayer : public QObject
 		Chess::Side m_side;
 		Chess::Board* m_board;
 		ChessPlayer* m_opponent;
+        EngineProcess *m_engineprocess;
 };
 
 #endif // CHESSPLAYER_H

@@ -316,21 +316,28 @@ void TimeControl::setExpiryMargin(int expiryMargin)
 	m_expiryMargin = expiryMargin;
 }
 
-void TimeControl::startTimer()
+void TimeControl::startTimer(EngineProcess *engine)
 {
+	if (engine != nullptr)
+		engine->GetCpuUsage();
 	m_time.start();
 }
 
-void TimeControl::update(bool applyIncrement)
+void TimeControl::update(bool applyIncrement, EngineProcess *engine)
 {
 	/*
 	 * This will overflow after roughly 49 days however it's unlikely
 	 * we'll ever hit that limit.
 	 */
-	if (m_time.isValid())
+	m_lastMoveTime = 0;
+    if (engine != nullptr)
+	{
+		m_lastMoveTime = engine->GetCpuUsage();
+	}
+	if (!m_lastMoveTime && m_time.isValid())
+	{
 		m_lastMoveTime = (int)m_time.elapsed();
-	else
-		m_lastMoveTime = 0;
+	}
 
 	if (!m_infinite && m_lastMoveTime > m_timeLeft + m_expiryMargin)
 		m_expired = true;
