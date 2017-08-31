@@ -263,6 +263,7 @@ EngineMatch* parseMatch(const QStringList& args, QObject* parent)
 	parser.addOption("-site", QVariant::String, 1, 1);
 	parser.addOption("-wait", QVariant::Int, 1, 1);
 	parser.addOption("-seeds", QVariant::UInt, 1, 1);
+    parser.addOption("-cputimer", QVariant::Bool, 0, 0);
 	if (!parser.parse())
 		return nullptr;
 
@@ -283,6 +284,7 @@ EngineMatch* parseMatch(const QStringList& args, QObject* parent)
 	QList<EngineData> engines;
 	QStringList eachOptions;
 	GameAdjudicator adjudicator;
+    bool cpuTimer = false;
 
 	const auto options = parser.options();
 	for (const auto& option : options)
@@ -549,6 +551,11 @@ EngineMatch* parseMatch(const QStringList& args, QObject* parent)
 			if (ok)
 				tournament->setSeedCount(seedCount);
 		}
+        // Use CPU timer instead of cutechess timer?
+        else if (name == "-cputimer")
+        {
+            cpuTimer = true;
+        }
 		else
 			qFatal("Unknown argument: \"%s\"", qPrintable(name));
 
@@ -577,16 +584,18 @@ EngineMatch* parseMatch(const QStringList& args, QObject* parent)
 
 	bool ok = true;
 
-	if (!eachOptions.isEmpty())
-	{
-		QList<EngineData>::iterator it;
-		for (it = engines.begin(); it != engines.end(); ++it)
-		{
-			ok = parseEngine(eachOptions, *it);
-			if (!ok)
-				break;
-		}
-	}
+    QList<EngineData>::iterator it;
+    for (it = engines.begin(); it != engines.end(); ++it)
+    {
+        it->config.setCpuTimer(cpuTimer);
+
+        if (!eachOptions.isEmpty())
+        {
+            ok = parseEngine(eachOptions, *it);
+            if (!ok)
+                break;
+        }
+    }
 
 	const auto& constEngines = engines;
 	for (const auto& engine : constEngines)

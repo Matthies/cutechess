@@ -205,7 +205,11 @@ class LIB_EXPORT EngineConfiguration
 		/*! Sets result claim validation mode to \a validate. */
 		void setClaimsValidated(bool validate);
 
-		/*!
+        /*! Returns true if time for move is measured by CPU usage */
+        bool useCpuTimer() const;
+        void setCpuTimer(bool cpuTimer);
+
+        /*!
 		 * Assigns \a other to this engine configuration and returns
 		 * a reference to this object.
 		 */
@@ -225,6 +229,7 @@ class LIB_EXPORT EngineConfiguration
 		bool m_pondering;
 		bool m_validateClaims;
 		RestartMode m_restartMode;
+        bool m_cpuTimer;
 };
 
 #endif // ENGINE_CONFIGURATION_H

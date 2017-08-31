@@ -119,8 +119,6 @@ void ChessEngine::setDevice(EngineProcess* device)
 
 	connect(m_ioDevice, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
 	connect(m_ioDevice, SIGNAL(readChannelFinished()), this, SLOT(onCrashed()));
-
-    registerEngineProcess(device);
 }
 
 void ChessEngine::applyConfiguration(const EngineConfiguration& configuration)
@@ -143,6 +141,11 @@ void ChessEngine::applyConfiguration(const EngineConfiguration& configuration)
 	m_pondering = configuration.pondering();
 	m_restartMode = configuration.restartMode();
 	setClaimsValidated(configuration.areClaimsValidated());
+
+    if (configuration.useCpuTimer())
+        registerEngineProcess(m_ioDevice);
+    else
+        registerEngineProcess(nullptr);
 }
 
 void ChessEngine::addOption(EngineOption* option)

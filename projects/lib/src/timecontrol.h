@@ -218,6 +218,8 @@ class LIB_EXPORT TimeControl
 		bool m_expired;
 		bool m_infinite;
 		QElapsedTimer m_time;
+        int m_AllMovesTime;
+        int m_AllMovesCpuTime;
 };
 
 #endif // TIMECONTROL_H

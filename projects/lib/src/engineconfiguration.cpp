@@ -362,6 +362,17 @@ void EngineConfiguration::setClaimsValidated(bool validate)
 	m_validateClaims = validate;
 }
 
+bool EngineConfiguration::useCpuTimer() const
+{
+    return m_cpuTimer;
+}
+
+void EngineConfiguration::setCpuTimer(bool cpuTimer)
+{
+    m_cpuTimer = cpuTimer;
+}
+
+
 EngineConfiguration& EngineConfiguration::operator=(const EngineConfiguration& other)
 {
 	if (this != &other)

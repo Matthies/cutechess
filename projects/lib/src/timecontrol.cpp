@@ -198,6 +198,8 @@ void TimeControl::initialize()
 {
 	m_expired = false;
 	m_lastMoveTime = 0;
+    m_AllMovesTime = 0;
+    m_AllMovesCpuTime = 0;
 
 	if (m_timePerTc != 0)
 	{
@@ -333,11 +335,19 @@ void TimeControl::update(bool applyIncrement, EngineProcess *engine)
     if (engine != nullptr)
 	{
 		m_lastMoveTime = engine->GetCpuUsage();
+        m_AllMovesCpuTime += m_lastMoveTime;
 	}
-	if (!m_lastMoveTime && m_time.isValid())
+	if (m_time.isValid())
 	{
-		m_lastMoveTime = (int)m_time.elapsed();
+        int t = (int)m_time.elapsed();
+        m_AllMovesTime += t;
+
+        if (!m_lastMoveTime)
+            m_lastMoveTime = t;
 	}
+
+    printf("Timerstatistic: %d/%d = %2.1f\n", m_AllMovesCpuTime, m_AllMovesTime,
+        (m_AllMovesTime > 0 ? (float)m_AllMovesCpuTime / (float)m_AllMovesTime * 100 : 0.0));
 
 	if (!m_infinite && m_lastMoveTime > m_timeLeft + m_expiryMargin)
 		m_expired = true;
