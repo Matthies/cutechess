@@ -80,6 +80,7 @@ void ChessPlayer::endGame(const Chess::Result& result)
 	m_board = nullptr;
 	m_timer->stop();
 	disconnect(this, SIGNAL(ready()), this, SLOT(go()));
+    m_timeControl.statistic();
 }
 
 void ChessPlayer::go()

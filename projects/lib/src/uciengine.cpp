@@ -821,7 +821,7 @@ QString UciEngine::sanPv(const QVarLengthArray<QStringRef>& tokens)
 		auto move = board->moveFromString(token.toString());
 		if (move.isNull())
 		{
-			qWarning("Illegal PV move %s from %s",
+            qWarning("Illegal PV move %s from %s",
 				 qPrintable(token.toString()),
 				 qPrintable(name()));
 			break;

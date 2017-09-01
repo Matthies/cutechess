@@ -108,7 +108,8 @@ EngineConfiguration::EngineConfiguration(const EngineConfiguration& other)
 	  m_whiteEvalPov(other.m_whiteEvalPov),
 	  m_pondering(other.m_pondering),
 	  m_validateClaims(other.m_validateClaims),
-	  m_restartMode(other.m_restartMode)
+	  m_restartMode(other.m_restartMode),
+      m_cpuTimer(other.m_cpuTimer)
 {
 	const auto options = other.options();
 	for (const EngineOption* option : options)

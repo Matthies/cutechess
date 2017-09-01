@@ -346,9 +346,6 @@ void TimeControl::update(bool applyIncrement, EngineProcess *engine)
             m_lastMoveTime = t;
 	}
 
-    printf("Timerstatistic: %d/%d = %2.1f\n", m_AllMovesCpuTime, m_AllMovesTime,
-        (m_AllMovesTime > 0 ? (float)m_AllMovesCpuTime / (float)m_AllMovesTime * 100 : 0.0));
-
 	if (!m_infinite && m_lastMoveTime > m_timeLeft + m_expiryMargin)
 		m_expired = true;
 
@@ -421,3 +418,10 @@ void TimeControl::writeSettings(QSettings* settings)
 	settings->setValue("expiry_margin", m_expiryMargin);
 	settings->setValue("infinite", m_infinite);
 }
+
+void TimeControl::statistic()
+{
+    qDebug("Timer statistic in last game: %d/%d = %2.1f CPU usage", m_AllMovesCpuTime, m_AllMovesTime,
+        (m_AllMovesTime > 0 ? (float)m_AllMovesCpuTime / (float)m_AllMovesTime * 100 : 0.0));
+}
+

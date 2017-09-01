@@ -204,6 +204,9 @@ class LIB_EXPORT TimeControl
 		/*! Writes this time control to \a settings. */
 		void writeSettings(QSettings* settings);
 
+        /*! writes CPU usage in debug output */
+        void statistic();
+
 	private:
 		int m_movesPerTc;
 		int m_timePerTc;
