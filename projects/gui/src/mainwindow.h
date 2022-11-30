@@ -160,6 +160,7 @@ class MainWindow : public QMainWindow
 		QAction* m_showSettingsAct;
 
 		PlainTextLog* m_engineDebugLog;
+		PlainTextLog* m_tournamentResultsLog;
 
 		EvalHistory* m_evalHistory;
 		EvalWidget* m_evalWidgets[2];

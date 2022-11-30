@@ -354,8 +354,15 @@ void MainWindow::createDockWindows()
 	engineDebugDock->setObjectName("EngineDebugDock");
 	m_engineDebugLog = new PlainTextLog(engineDebugDock);
 	engineDebugDock->setWidget(m_engineDebugLog);
-	engineDebugDock->close();
 	addDockWidget(Qt::BottomDockWidgetArea, engineDebugDock);
+
+	// Tournament results
+	QDockWidget* tournamentResultsDock = new QDockWidget(tr("Tournament Results"), this);
+	tournamentResultsDock->setObjectName("TournamantResults");
+	m_tournamentResultsLog = new PlainTextLog(tournamentResultsDock);
+	tournamentResultsDock->setWidget(m_tournamentResultsLog);
+
+	tabifyDockWidget(engineDebugDock, tournamentResultsDock);
 
 	// Evaluation history
 	auto evalHistoryDock = new QDockWidget(tr("Evaluation history"), this);
@@ -393,12 +400,14 @@ void MainWindow::createDockWindows()
 	addDockWidget(Qt::RightDockWidgetArea, tagsDock);
 
 	tabifyDockWidget(moveListDock, tagsDock);
+
 	moveListDock->raise();
 
 	// Add toggle view actions to the View menu
 	m_viewMenu->addAction(moveListDock->toggleViewAction());
 	m_viewMenu->addAction(tagsDock->toggleViewAction());
 	m_viewMenu->addAction(engineDebugDock->toggleViewAction());
+	m_viewMenu->addAction(tournamentResultsDock->toggleViewAction());
 	m_viewMenu->addAction(evalHistoryDock->toggleViewAction());
 	m_viewMenu->addAction(whiteEvalDock->toggleViewAction());
 	m_viewMenu->addAction(blackEvalDock->toggleViewAction());
