@@ -59,6 +59,7 @@
 #include "evalwidget.h"
 #include "boardview/boardscene.h"
 #include "tournamentresultsdlg.h"
+#include "tourneywidget.h"
 
 #if 0
 #include <modeltest.h>
@@ -357,12 +358,11 @@ void MainWindow::createDockWindows()
 	addDockWidget(Qt::BottomDockWidgetArea, engineDebugDock);
 
 	// Tournament results
-	QDockWidget* tournamentResultsDock = new QDockWidget(tr("Tournament Results"), this);
-	tournamentResultsDock->setObjectName("TournamantResults");
-	m_tournamentResultsLog = new PlainTextLog(tournamentResultsDock);
-	tournamentResultsDock->setWidget(m_tournamentResultsLog);
+	QDockWidget* tourneyDock = new QDockWidget(tr("Tournament"), this);
+	tourneyDock->setObjectName("Tournamant");
+	tourneyDock->setWidget(new TourneyWidget(tourneyDock));
 
-	tabifyDockWidget(engineDebugDock, tournamentResultsDock);
+	tabifyDockWidget(engineDebugDock, tourneyDock);
 
 	// Evaluation history
 	auto evalHistoryDock = new QDockWidget(tr("Evaluation history"), this);
@@ -407,7 +407,7 @@ void MainWindow::createDockWindows()
 	m_viewMenu->addAction(moveListDock->toggleViewAction());
 	m_viewMenu->addAction(tagsDock->toggleViewAction());
 	m_viewMenu->addAction(engineDebugDock->toggleViewAction());
-	m_viewMenu->addAction(tournamentResultsDock->toggleViewAction());
+	m_viewMenu->addAction(tourneyDock->toggleViewAction());
 	m_viewMenu->addAction(evalHistoryDock->toggleViewAction());
 	m_viewMenu->addAction(whiteEvalDock->toggleViewAction());
 	m_viewMenu->addAction(blackEvalDock->toggleViewAction());

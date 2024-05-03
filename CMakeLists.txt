@@ -256,6 +256,7 @@ add_executable(gui
 	projects/gui/src/pathlineedit.cpp
 	projects/gui/src/timecontroldlg.cpp
 	projects/gui/src/pgnimporter.cpp
+	projects/gui/src/tourneywidget.cpp
 
 	projects/gui/ui/settingsdlg.ui
 	projects/gui/ui/engineconfigdlg.ui
